@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      height: 100vh;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.9)),
+        url(./images/bg01.jpg) no-repeat center/cover;
+      background-position: top;
+      overflow: hidden;
+    }
+
+    .white {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      background: url(./images/white-01.png)no-repeat;
+      animation-name: move;
+      animation-duration: 3s;
+    }
+
+    @keyframes move {
+      0% {
+        margin-left: -960px;
+      }
+
+      100% {
+        margin-left: 0px;
+      }
+    }
+
+    #content1 {
+      width: 50%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      /* border: 1px solid yellow; */
+      box-sizing: border-box;
+    }
+
+    #box {
+      width: 600px;
+      height: 700px;
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      /* border: 1px solid blue; */
+      text-align: center;
+    }
+
+    .img {
+      width: 450px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      width: 450px;
+      margin: auto;
+    }
+
+    .text1 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .text2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .text3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .text4 {
+      font-size: 16px;
+      /* font-weight: bold; */
+      text-align: left;
+      text-indent: 2rem;
+    }
+
+    #content2 {
+      width: 50%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      /* border: 1px solid red; */
+      box-sizing: border-box;
+    }
+
+    #game {
+      width: 800px;
+      height: 800px;
+      /* border: 1px solid white; */
+      position: absolute;
+      top: 53%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+    }
+
+    .start {
+      width: 200px;
+      height: 50px;
+      background: white;
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 5px;
+    }
+
+    .home {
+      width: 100px;
+      height: 50px;
+      background: white;
+      position: absolute;
+      bottom: 40px;
+      right: 0;
+      transform: translateX(-50%);
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+      line-height: 50px;
+      color: black;
+      font-family: '微軟正黑體';
+      font-size: 14px;
+    }
+
+    .card {
+      width: 180px;
+      height: 150px;
+      position: relative;
+      float: left;
+      margin: 10px;
+      transition: transform 1s;
+      /* 設定子元素在 3D 空間內 */
+      transform-style: preserve-3d;
+      border-radius: 5px;
+    }
+
+    .card:hover {
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .card-front {
+      width: 100%;
+      height: 100%;
+      background-image: url(./撲克牌/AG-01.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      /* 設定隱藏背面 */
+      backface-visibility: hidden;
+      border-radius: 5px;
+    }
+
+    .card-back {
+      width: 100%;
+      height: 100%;
+      background-image: url(./撲克牌/sea-back_工作區域\ 1.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      transform: rotateY(180deg);
+      /* 設定隱藏背面 */
+      backface-visibility: hidden;
+      border-radius: 5px;
+    }
+
+    .card-close {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="white"></div>
+  <div id="content1">
+    <div id="box">
+      <div><img class="img" src="./images/AG.jpeg"></div>
+      <p class="text1">START <br> 開始遊戲！</p>
+      <p class="text2"></p>
+      <p class="text3"></p>
+      <p class="text4"></p>
+    </div>
+  </div>
+  <div id="content2">
+    <div id="game">
+      <input class="start" type="button" value="START">
+      <a class="home" href="./index.html" target="_top">HOME</a>
+    </div>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js'
+    integrity='sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=='
+    crossorigin='anonymous'></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+
+    // 點擊開始按鈕後生牌
+    $('.start').on('click', function () {
+      $('.img').attr('src', 'images/AG.jpeg')
+      $('.text1').text('GO!GO!')
+      $('.text2').text('')
+      $('.text3').html('')
+      $('.text4').text('')
+      // 產生卡片
+      for (let i = 0; i < 16; i++) {
+        $('#game').append(`
+        <div class="card card-close">
+          <div class="card-front"></div>
+          <div class="card-back"></div>
+        </div>
+      `)
+      }
+      for (let i = 0; i < $('.card').length; i++) {
+        // 決定數字
+        const num = i % ($('.card').length / 2) + 1
+        $('.card').eq(i).find('.card-front').css('background-image', `url(./撲克牌/AG-0${num}.jpg)`)
+        $('.card').eq(i).attr('data-num', num)
+
+        // 打散
+        const target = Math.round(Math.random() * ($('.card').length - 1))
+        $('.card').eq(target).insertAfter($('.card').eq(i))
+      }
+      // 開始後關閉按鈕
+      $(this).attr('disabled', true)
+    })
+
+    $('#game').on('click', '.card', function () {
+      // 最多一次翻兩張，且這張牌還沒翻開
+      if ($('.card:not(.card-close)').length < 2 &&
+        $(this).hasClass('card-close') &&
+        !$(this).hasClass('card-ok')
+      ) {
+        $(this).removeClass('card-close')
+      }
+
+      // 如果翻兩張了
+      if ($('.card:not(.card-close)').length === 2) {
+        // 如果數字一樣
+        if ($('.card:not(.card-close)').eq(0).attr('data-num') === $('.card:not(.card-close)').eq(1).attr('data-num')) {
+          // 用 card-ok 標記已完成
+          $('.card:not(.card-close)').addClass('card-ok')
+
+
+
+          // 換照片
+
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '1') {
+            $('.img').attr('src', 'images/AG-01.png')
+            $('.text1').text('中文：馬鞍神仙')
+            $('.text2').text('學名：Euxiphipops navarchus')
+            $('.text3').html(`飼養難度:中等<br>性情：溫和<br>成體尺寸：30厘米<br>珊瑚缸兼容：小心<br>食物喜好：雜食<br>主要分佈：印度洋<br>種屬：棘鰈魚科`)
+            $('.text4').text('成魚橘紅色及藍色構成，幼魚是藍色和淺白條紋。相當酖小害羞，以神仙來說，攻擊珊瑚的比例較低，混養需小心警慎！')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '2') {
+            $('.img').attr('src', 'images/AG-02.png')
+            $('.text1').text('中文：藍面神仙')
+            $('.text2').text('學名：Euxiphipops xanthometopon')
+            $('.text3').html(`飼養難度:中等<br>性情：一定攻擊性<br>成體尺寸：40厘米<br>珊瑚缸兼容：危險<br>食物喜好：雜食<br>主要分佈：印度洋、太平洋<br>種屬：棘鰈魚科`)
+            $('.text4').text('成魚有藍色臉因而得名，橘黃色的眼斑像帶著一副眼罩一樣，相當討喜，幼魚是藍色、黑色和淺白條紋。對珊瑚有一定攻擊性。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '3') {
+            $('.img').attr('src', 'images/AG-03.png')
+            $('.text1').text('中文：皇后神仙')
+            $('.text2').text('學名：Pomacanthus imperator')
+            $('.text3').html(`飼養難度:中等<br>性情：一定攻擊性<br>成體尺寸：40厘米<br>珊瑚缸兼容：危險<br>食物喜好：雜食<br>主要分佈：珊瑚海、印度洋<br>種屬：棘鰈魚科`)
+            $('.text4').text('也稱為皇帝神仙，厚實的藍色身體上面佈滿黃色條紋，顏色對比明顯。幼魚時期回白藍配色，稱為藍圈神仙。會啃食珊瑚，無法混養。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '4') {
+            $('.img').attr('src', 'images/AG-04.png')
+            $('.text1').text('中文：藍紋神仙')
+            $('.text2').text('學名：Pomacanthus semicirculatus')
+            $('.text3').html(`飼養難度:容易<br>性情：一定攻擊性<br>成體尺寸：40厘米<br>珊瑚缸兼容：危險<br>食物喜好：雜食<br>主要分佈：印度洋<br>種屬：棘鰈魚科`)
+            $('.text4').text('藍紋神仙是一種普遍、好養的神仙魚，成魚身體是黃綠色深淺漸層，身體周圍有藍色的條紋。幼魚是藍色、黑色和淺白條紋。對珊瑚有一定攻擊性。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '5') {
+            $('.img').attr('src', 'images/AG-05.png')
+            $('.text1').text('中文：法國神仙')
+            $('.text2').text('學名：Pomacanthus paru')
+            $('.text3').html(`飼養難度:中等<br>性情：一定攻擊性<br>成體尺寸：40厘米<br>珊瑚缸兼容：危險<br>食物喜好：雜食<br>主要分佈：大西洋海<br>種屬：棘鰈魚科`)
+            $('.text4').text('是一種相當流行的神仙魚，成魚有一張淺灰藍的臉，身體由黑、灰及黃組成。幼魚是黑色身體及醒目的黃色條紋，很容易辨認。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '6') {
+            $('.img').attr('src', 'images/AG-06.png')
+            $('.text1').text('中文：藍嘴新娘')
+            $('.text2').text('學名：Apolemichthys trimaculatus')
+            $('.text3').html(`飼養難度:中等<br>性情：一定攻擊性<br>成體尺寸：25厘米<br>珊瑚缸兼容：危險<br>食物喜好：雜食<br>主要分佈：印度洋<br>種屬：棘鰈魚科`)
+            $('.text4').text('一身亮黃色配上藍色的嘴唇，臀鰭是黑白分明的色塊，眼睛上有一點黑，像是他的眉毛一樣。算是溫和的神仙魚，成體後會與同類相鬥。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '7') {
+            $('.img').attr('src', 'images/AG-07.png')
+            $('.text1').text('中文：石美人')
+            $('.text2').text('學名：Centropyge bicolor')
+            $('.text3').html(`飼養難度:中等<br>性情：一定攻擊性<br>成體尺寸：15厘米<br>珊瑚缸兼容：小心<br>食物喜好：雜食<br>主要分佈：斐濟、塔西堤島<br>種屬：棘鰈魚科`)
+            $('.text4').text('身體前段及尾巴是黃色，後半部是深藍色，一條深藍條紋從頭頂延伸到眼睛。屬於小型神仙，攻擊珊瑚的比例較低，混養需小心警慎！')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '8') {
+            $('.img').attr('src', 'images/AG-08.png')
+            $('.text1').text('中文：火焰神仙')
+            $('.text2').text('學名：Centropyge loriculus')
+            $('.text3').html(`飼養難度:中等<br>性情：一定攻擊性<br>成體尺寸：10厘米<br>珊瑚缸兼容：小心<br>食物喜好：雜食<br>主要分佈：聖誕島、庫克島<br>種屬：棘鰈魚科`)
+            $('.text4').text('火焰仙是最受歡迎的小神仙，是海缸中的亮點。亮橘色的身體有黑藍條紋，相當醒目！屬於小型神仙，攻擊珊瑚的比例較低，混養需小心警慎！')
+          }
+
+          console.log($('.card:not(.card-close)').eq(0).attr('data-num'));
+          console.log($('.img').attr('src'));
+
+          // 卡牌消失
+          $('.card:not(.card-close)').fadeTo(1000, 0)
+        }
+
+        // 不正確才反轉
+        // if ($('.card:not(.card-close)').eq(0).attr('data-num') !== $('.card:not(.card-close)').eq(1).attr('data-num')) {
+        //   $('.card:not(.card-close)').addClass('card-close')
+        // }
+
+
+
+        // 不管數字一不一樣都將卡片翻回來
+        setTimeout(() => {
+          $('.card:not(.card-close)').addClass('card-close')
+          if ($('.card-ok').length === $('.card').length) {
+            Swal.fire({
+              icon: 'success',
+              title: '恭喜',
+              text: '恭喜過關'
+            })
+            // 結束後刪除所有卡牌，並開啟按鈕
+            $('.card').remove()
+            $('.start').attr('disabled', false)
+          }
+        }, 1000)
+      }
+    })
+  </script>
+</body>
+
+</html>

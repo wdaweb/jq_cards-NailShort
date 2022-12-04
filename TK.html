@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      height: 100vh;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.9)),
+        url(./images/bg01.jpg) no-repeat center/cover;
+      background-position: top;
+      overflow: hidden;
+    }
+
+    .white {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      background: url(./images/white-01.png)no-repeat;
+      animation-name: move;
+      animation-duration: 3s;
+    }
+
+    @keyframes move {
+      0% {
+        margin-left: -960px;
+      }
+
+      100% {
+        margin-left: 0px;
+      }
+    }
+
+    #content1 {
+      width: 50%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      /* border: 1px solid yellow; */
+      box-sizing: border-box;
+    }
+
+    #box {
+      width: 600px;
+      height: 700px;
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      /* border: 1px solid blue; */
+      text-align: center;
+    }
+
+    .img {
+      width: 450px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      width: 450px;
+      margin: auto;
+    }
+
+    .text1 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .text2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .text3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .text4 {
+      font-size: 16px;
+      /* font-weight: bold; */
+      text-align: left;
+      text-indent: 2rem;
+    }
+
+    #content2 {
+      width: 50%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      /* border: 1px solid red; */
+      box-sizing: border-box;
+    }
+
+    #game {
+      width: 800px;
+      height: 800px;
+      /* border: 1px solid white; */
+      position: absolute;
+      top: 53%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+    }
+
+    .start {
+      width: 200px;
+      height: 50px;
+      background: white;
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 5px;
+    }
+
+    .home {
+      width: 100px;
+      height: 50px;
+      background: white;
+      position: absolute;
+      bottom: 40px;
+      right: 0;
+      transform: translateX(-50%);
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+      line-height: 50px;
+      color: black;
+      font-family: '微軟正黑體';
+      font-size: 14px;
+    }
+
+    .card {
+      width: 180px;
+      height: 150px;
+      position: relative;
+      float: left;
+      margin: 10px;
+      transition: transform 1s;
+      /* 設定子元素在 3D 空間內 */
+      transform-style: preserve-3d;
+      border-radius: 5px;
+    }
+
+    .card:hover {
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .card-front {
+      width: 100%;
+      height: 100%;
+      background-image: url(./撲克牌/TK-01.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      /* 設定隱藏背面 */
+      backface-visibility: hidden;
+      border-radius: 5px;
+    }
+
+    .card-back {
+      width: 100%;
+      height: 100%;
+      background-image: url(./撲克牌/sea-back_工作區域\ 1.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      transform: rotateY(180deg);
+      /* 設定隱藏背面 */
+      backface-visibility: hidden;
+      border-radius: 5px;
+    }
+
+    .card-close {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="white"></div>
+  <div id="content1">
+    <div id="box">
+      <div><img class="img" src="./images/TK.jpg"></div>
+      <p class="text1">START <br> 開始遊戲！</p>
+      <p class="text2"></p>
+      <p class="text3"></p>
+      <p class="text4"></p>
+    </div>
+  </div>
+  <div id="content2">
+    <div id="game">
+      <input class="start" type="button" value="START">
+      <a class="home" href="./index.html" target="_top">HOME</a>
+    </div>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js'
+    integrity='sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=='
+    crossorigin='anonymous'></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+
+    // 點擊開始按鈕後生牌
+    $('.start').on('click', function () {
+      $('.img').attr('src', 'images/TK.jpg')
+      $('.text1').text('GO!GO!')
+      $('.text2').text('')
+      $('.text3').html('')
+      $('.text4').text('')
+      // 產生卡片
+      for (let i = 0; i < 16; i++) {
+        $('#game').append(`
+        <div class="card card-close">
+          <div class="card-front"></div>
+          <div class="card-back"></div>
+        </div>
+      `)
+      }
+      for (let i = 0; i < $('.card').length; i++) {
+        // 決定數字
+        const num = i % ($('.card').length / 2) + 1
+        $('.card').eq(i).find('.card-front').css('background-image', `url(./撲克牌/TK-0${num}.jpg)`)
+        $('.card').eq(i).attr('data-num', num)
+
+        // 打散
+        const target = Math.round(Math.random() * ($('.card').length - 1))
+        $('.card').eq(target).insertAfter($('.card').eq(i))
+      }
+      // 開始後關閉按鈕
+      $(this).attr('disabled', true)
+    })
+
+    $('#game').on('click', '.card', function () {
+      // 最多一次翻兩張，且這張牌還沒翻開
+      if ($('.card:not(.card-close)').length < 2 &&
+        $(this).hasClass('card-close') &&
+        !$(this).hasClass('card-ok')
+      ) {
+        $(this).removeClass('card-close')
+      }
+
+      // 如果翻兩張了
+      if ($('.card:not(.card-close)').length === 2) {
+        // 如果數字一樣
+        if ($('.card:not(.card-close)').eq(0).attr('data-num') === $('.card:not(.card-close)').eq(1).attr('data-num')) {
+          // 用 card-ok 標記已完成
+          $('.card:not(.card-close)').addClass('card-ok')
+
+
+
+          // 換照片
+
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '1') {
+            $('.img').attr('src', 'images/TK-01.png')
+            $('.text1').text('中文：雞心倒吊')
+            $('.text2').text('學名：Acanthurus achilles')
+            $('.text3').html(`飼養難度:困難<br>性情：溫和<br>成體尺寸：28厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：夏威夷<br>種屬：倒吊科`)
+            $('.text4').text('在背鰭、尾鰭及臀鰭上有非常鮮豔的白色和橘色。腮部有一個亮白色條紋，靠近尾部有一個像淚珠形狀的橘色斑塊。對同類魚有攻擊行為，對其他品種的則很友好。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '2') {
+            $('.img').attr('src', 'images/TK-02.png')
+            $('.text1').text('中文：粉藍倒吊')
+            $('.text2').text('學名：Acanthurus leucosternon')
+            $('.text3').html(`飼養難度:容易<br>性情：一定攻擊性<br>成體尺寸：25厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：馬爾地夫、斯里蘭卡<br>種屬：倒吊科`)
+            $('.text4').text('也叫粉吊，卵圓形的身體，顏色對比鮮明。以鮮明的色彩備受歡迎，背鰭及胸鰭是鮮亮的黃色，頭部及尾部呈現黑藍色。對其他吊類非常具有攻擊性。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '3') {
+            $('.img').attr('src', 'images/TK-03.png')
+            $('.text1').text('中文：黑花倒吊')
+            $('.text2').text('學名：Acanthurus nigricans')
+            $('.text3').html(`飼養難度:中等<br>性情：溫和<br>成體尺寸：17厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：夏威夷<br>種屬：倒吊科`)
+            $('.text4').text('全灰黑色的身體，在嘴和眼睛間有一個亮白色的條紋，尾巴是藍黃條紋，對同類魚有攻擊行為，對其他品種的則很友好。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '4') {
+            $('.img').attr('src', 'images/TK-04.png')
+            $('.text1').text('中文：藍倒吊')
+            $('.text2').text('學名：Paracanthurus hepatus')
+            $('.text3').html(`飼養難度:中等<br>性情：溫和<br>成體尺寸：25厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：斐濟、印度洋、索羅門島<br>種屬：倒吊科`)
+            $('.text4').text('藍倒吊也叫太平洋吊，是一種大家最喜愛、美麗的倒吊。是海底總動員裡的多莉，海水藍和黑色的粗線條相當鮮豔。成長快速，需要3呎以上魚缸較佳。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '5') {
+            $('.img').attr('src', 'images/TK-05.png')
+            $('.text1').text('中文：黃三角倒吊')
+            $('.text2').text('學名：Zebrasome flavescens')
+            $('.text3').html(`飼養難度:容易<br>性情：一定攻擊性<br>成體尺寸：15厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：印度尼西亞、大堡礁<br>種屬：倒吊科`)
+            $('.text4').text('全身鮮黃的顏色，是每個水族家最想入手的魚之一。因近幾年夏威夷禁捕，價格漲了10幾倍，被譽為海水魚台積電！對同類魚有攻擊行。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '6') {
+            $('.img').attr('src', 'images/TK-06.png')
+            $('.text1').text('中文：紫倒吊')
+            $('.text2').text('學名：Zebrasome xanthurum')
+            $('.text3').html(`飼養難度:中等<br>性情：兇猛<br>成體尺寸：22厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：紅海<br>種屬：倒吊科`)
+            $('.text4').text('據知只生活在紅海，在海水魚中以顏色鮮艷出名，是相當受歡迎的魚種。紫藍的身體帶有像地圖般的亂紋，及鮮黃色的尾巴，強烈對比是相當顯眼的存在！')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '7') {
+            $('.img').attr('src', 'images/TK-07.png')
+            $('.text1').text('中文：珍珠倒吊')
+            $('.text2').text('學名：Zebrasome gemmatum')
+            $('.text3').html(`飼養難度:中等<br>性情：溫和<br>成體尺寸：22厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：印度洋<br>種屬：倒吊科`)
+            $('.text4').text('顏色為黑色帶有白色的星點，尾巴呈現淡黃色或白色。屬於較昂貴的魚種，對同類魚有攻擊行為，對其他品種的則很友好。')
+          }
+          if ($('.card:not(.card-close)').eq(0).attr('data-num') === '8') {
+            $('.img').attr('src', 'images/TK-08.png')
+            $('.text1').text('中文：黑絲絨吊')
+            $('.text2').text('學名：Zebrasome rostratum')
+            $('.text3').html(`飼養難度:中等<br>性情：兇猛<br>成體尺寸：22厘米<br>珊瑚缸兼容：安全<br>食物喜好：草食<br>主要分佈：聖誕島<br>種屬：倒吊科`)
+            $('.text4').text('全身烏黑的身體，尾刺是非常顯眼的白色。屬於較昂貴的魚種，對同類魚有攻擊行為，對其他品種的則很友好。')
+          }
+
+          console.log($('.card:not(.card-close)').eq(0).attr('data-num'));
+          console.log($('.img').attr('src'));
+
+          // 卡牌消失
+          $('.card:not(.card-close)').fadeTo(1000, 0)
+        }
+
+        // 不正確才反轉
+        // if ($('.card:not(.card-close)').eq(0).attr('data-num') !== $('.card:not(.card-close)').eq(1).attr('data-num')) {
+        //   $('.card:not(.card-close)').addClass('card-close')
+        // }
+
+
+
+        // 不管數字一不一樣都將卡片翻回來
+        setTimeout(() => {
+          $('.card:not(.card-close)').addClass('card-close')
+          if ($('.card-ok').length === $('.card').length) {
+            Swal.fire({
+              icon: 'success',
+              title: '恭喜',
+              text: '恭喜過關'
+            })
+            // 結束後刪除所有卡牌，並開啟按鈕
+            $('.card').remove()
+            $('.start').attr('disabled', false)
+          }
+        }, 1000)
+      }
+    })
+  </script>
+</body>
+
+</html>
